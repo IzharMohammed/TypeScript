@@ -292,3 +292,18 @@ const config : Readonly<Config> = {
 
 // config.apiKey = 'new key'  // Error :- Cannot assign to 'apiKey' because it is a read-only property.
 // This is compile time checking, not runtime (unlike const)
+
+
+/* Exclude  */
+// In a function that can accept several types of inputs but you want to exclude specific types from being passed to it.
+
+type Event1 = 'click' | 'scroll' | 'mouseMove';
+type ExcludeEvent1 = Exclude<Event1 , 'scroll'>; // Includes :- 'click' | 'mousemove'  Excludes :- 'scroll'
+
+const handleEvent = (event : ExcludeEvent1) => {
+    console.log(`Handling event: ${event}`);
+}
+
+handleEvent('click');
+handleEvent('mouseMove');
+// handleEvent('scroll');  // Error :- Argument of type '"scroll"' is not assignable to parameter of type 'ExcludeEvent1'
