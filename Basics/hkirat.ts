@@ -235,6 +235,7 @@ console.log(res1.toLowerCase());
 
 
 /* Advance TS apis */
+
 // Pick
 // Pick allows you to create a new type by selecting a set of properties (Keys) from an existing type (Type).
 // Imagine you have a User model with several properties, but for a user profile display, you only need a subset of these properties.
@@ -251,3 +252,26 @@ type UserProfile = Pick<User, 'name' | 'email'>
 const displayUserProfile = (user: UserProfile) => {
     console.log(`Name : ${user.name}, Email : ${user.email}`);
 }
+
+
+ /* Partial */
+// Partial makes all properties of a type optional, creating a type with the same properties, but each marked as optional.
+// Specifically useful when you want to do updates
+
+interface User2 {
+    id : string;
+    name : string;
+    age : string;
+    email : string;
+    password : string;
+}
+
+type UpdateProps = Pick<User2 , 'age' | 'name' | 'email'>
+
+type UpdatedPropsOptional = Partial<UpdateProps>
+
+function updateUser(updatedProps : UpdatedPropsOptional){
+    // hit the database tp update the user
+}
+
+updateUser({})
