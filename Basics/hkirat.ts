@@ -167,7 +167,7 @@ enum Direction {
 }
 
 function doSomething1(keyPressed: Direction) {
-    if(keyPressed == Direction.Up){
+    if (keyPressed == Direction.Up) {
         // Logic..........
     }
 
@@ -192,3 +192,43 @@ doSomething1(Direction.Right);
 //     // and so on...
 // 		res.status(ResponseStatus.Success).json({});
 // })
+
+
+/* Generics */
+//you have a function that needs to return the first element of an array. Array can be of type either string or integer.
+function getFirstElement(arr: (string | number)[]) {
+    return arr[0];
+}
+
+const el = getFirstElement([1, 2, 3]);
+// What is the problem in this approach?
+// User can send different types of values in inputs, without any type errors
+function getFirstElement1(arr: (string | number)[]) {
+    return arr[0];
+}
+
+const res = getFirstElement1([1, 2, '23']);
+
+// Typescript isn’t able to infer the right type of the return type
+function getFirstElement2(arr: (string | number)[]) {
+    return arr[0];
+}
+
+const result = getFirstElement(["izhar", "mohammed"]);
+// console.log(result.toLowerCase())  // Error
+
+// Solution - Generics
+function identity<T>(arg: T): T {
+    return arg;
+}
+
+let output1 = identity<string>("random");
+let output2 = identity<number>(1);
+
+// Solution for above error 
+function getFirstElement3<T>(arr: T[]) {
+    return arr[0];
+}
+
+const res1 = getFirstElement3<string>(["izhar", "mohammed"]);
+console.log(res1.toLowerCase());
