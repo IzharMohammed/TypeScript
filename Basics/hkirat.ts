@@ -73,9 +73,9 @@ class manager implements Person {
 // Types 
 // Very similar to interfaces , types let you aggregate data together.
 type User1 = {
-    firstName : string,
-    lastName : string,
-    age : number
+    firstName: string,
+    lastName: string,
+    age: number
 }
 
 // #1 1. Unions
@@ -90,8 +90,8 @@ type User1 = {
 /* Method - 2 using types  */
 type ID = string | number;
 
-function printId(id : ID){
-    console.log('ID :- ',id);
+function printId(id: ID) {
+    console.log('ID :- ', id);
 }
 printId(10);
 printId('izhar');
@@ -104,13 +104,13 @@ You can not do this using interfaces
 */
 
 type employee1 = {
-    name : string;
-    startDate : Date;
+    name: string;
+    startDate: Date;
 }
 
 type manager1 = {
-    name : string,
-    department : string
+    name: string,
+    department: string
 }
 
 /* Method -1  */
@@ -123,8 +123,72 @@ type manager1 = {
 /* Method -2 using types but we cant use it in interfaces */
 type TeamLead = employee1 & manager1;
 
-const teamLead : TeamLead = {
-    name : 'kak',
-    startDate : new Date(),
-    department : 'SDE'
+const teamLead: TeamLead = {
+    name: 'kak',
+    startDate: new Date(),
+    department: 'SDE'
 }
+
+/* Enums */
+
+// Enums (short for enumerations) in TypeScript are a feature that allows you to define a set of named constants.
+// The concept behind an enumeration is to create a human-readable way to represent a set of constant values, which might otherwise be represented as numbers or strings.
+
+
+// Example 1 - Game 
+// Let’s say you have a game where you have to perform an action based on weather the user has pressed the up arrow key, down arrow key, left arrow key or right arrow key.
+// What should the type of keyPressed be?
+// Should it be a string? (UP , DOWN , LEFT, RIGHT) ?
+// Should it be numbers? (1, 2, 3, 4) ?
+// The best thing to use in such a case is an enum
+
+/* Method - 1 (using types) */
+
+type Direction1 = "up" | "down" | "left" | "right"
+
+function doSomething(keyPressed: Direction1) {
+    if (keyPressed == "up") {
+        // Logic .................
+    }
+}
+doSomething("up");
+doSomething("down");
+doSomething("left");
+doSomething("right");
+// doSomething("random");  // Error 
+
+
+/* Method - 2 (using enums which increases readability) */
+enum Direction {
+    Up,
+    Down,
+    Left,
+    Right
+}
+
+function doSomething1(keyPressed: Direction) {
+    if(keyPressed == Direction.Up){
+        // Logic..........
+    }
+
+}
+
+doSomething1(Direction.Up);
+doSomething1(Direction.Left);
+doSomething1(Direction.Down);
+doSomething1(Direction.Right);
+
+//  Common usecase in express
+// enum ResponseStatus {
+//     Success = 200,
+//     NotFound = 404,
+//     Error = 500
+// }
+
+// app.get("/', (req, res) => {
+//     if (!req.query.userId) {
+// 			res.status(ResponseStatus.Error).json({})
+//     }
+//     // and so on...
+// 		res.status(ResponseStatus.Success).json({});
+// })
