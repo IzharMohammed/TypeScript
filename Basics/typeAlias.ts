@@ -343,16 +343,32 @@ izhar = {username : " " , id : 9}
 /* Working with Union Types  */
 // TypeScript will only allow an operation if it is valid for every member of the union. For example, if you have the union string | number, you can’t use methods that are only available on string:
 
+//It will show error 
+
+/* function printId(id : number | string){
+  console.log(id.toUpperCase());
+  //Property 'toUpperCase' does not exist on type 'number'.
+} */
 
 
+function printId(id : number | string){
+  if (typeof id === 'string') {
+    console.log(id.toUpperCase());
+  } else {
+    console.log(id.toFixed());
+    
+  }
+}
 
+/* Union in arrays */
+const data1 : number[] = [1,2,3];
+const data2 : string[] = [' ', ' ', ' '];
 
+const data3 : (string | number | boolean)[] = [1,"ss"];
 
-
-
-
-
-
+let seatAllotment: "aisle" | "middle" | "window";
+seatAllotment="window";
+//seatAllotment="anywhere";  ERROR
 
 
 
