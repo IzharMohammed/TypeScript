@@ -275,3 +275,20 @@ function updateUser(updatedProps : UpdatedPropsOptional){
 }
 
 updateUser({})
+
+
+/* ReadOnly */
+// When you have a configuration object that should not be altered after initialization, making it Readonly ensures its properties cannot be changed.
+
+interface Config {
+    readonly endPoint : string;
+    readonly apiKey : string;
+}
+
+const config : Readonly<Config> = {
+    endPoint: 'https://api.example.com',
+    apiKey: 'abcdef123456',
+}
+
+// config.apiKey = 'new key'  // Error :- Cannot assign to 'apiKey' because it is a read-only property.
+// This is compile time checking, not runtime (unlike const)
