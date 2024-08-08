@@ -232,3 +232,22 @@ function getFirstElement3<T>(arr: T[]) {
 
 const res1 = getFirstElement3<string>(["izhar", "mohammed"]);
 console.log(res1.toLowerCase());
+
+
+/* Advance TS apis */
+// Pick
+// Pick allows you to create a new type by selecting a set of properties (Keys) from an existing type (Type).
+// Imagine you have a User model with several properties, but for a user profile display, you only need a subset of these properties.
+
+interface User {
+    id: number;
+    name: string;
+    email: string;
+    createdAt: Date;
+}
+
+type UserProfile = Pick<User, 'name' | 'email'>
+
+const displayUserProfile = (user: UserProfile) => {
+    console.log(`Name : ${user.name}, Email : ${user.email}`);
+}
