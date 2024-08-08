@@ -254,23 +254,23 @@ const displayUserProfile = (user: UserProfile) => {
 }
 
 
- /* Partial */
+/* Partial */
 // Partial makes all properties of a type optional, creating a type with the same properties, but each marked as optional.
 // Specifically useful when you want to do updates
 
 interface User2 {
-    id : string;
-    name : string;
-    age : string;
-    email : string;
-    password : string;
+    id: string;
+    name: string;
+    age: string;
+    email: string;
+    password: string;
 }
 
-type UpdateProps = Pick<User2 , 'age' | 'name' | 'email'>
+type UpdateProps = Pick<User2, 'age' | 'name' | 'email'>
 
 type UpdatedPropsOptional = Partial<UpdateProps>
 
-function updateUser(updatedProps : UpdatedPropsOptional){
+function updateUser(updatedProps: UpdatedPropsOptional) {
     // hit the database tp update the user
 }
 
@@ -281,11 +281,11 @@ updateUser({})
 // When you have a configuration object that should not be altered after initialization, making it Readonly ensures its properties cannot be changed.
 
 interface Config {
-    readonly endPoint : string;
-    readonly apiKey : string;
+    readonly endPoint: string;
+    readonly apiKey: string;
 }
 
-const config : Readonly<Config> = {
+const config: Readonly<Config> = {
     endPoint: 'https://api.example.com',
     apiKey: 'abcdef123456',
 }
@@ -298,12 +298,55 @@ const config : Readonly<Config> = {
 // In a function that can accept several types of inputs but you want to exclude specific types from being passed to it.
 
 type Event1 = 'click' | 'scroll' | 'mouseMove';
-type ExcludeEvent1 = Exclude<Event1 , 'scroll'>; // Includes :- 'click' | 'mousemove'  Excludes :- 'scroll'
+type ExcludeEvent1 = Exclude<Event1, 'scroll'>; // Includes :- 'click' | 'mousemove'  Excludes :- 'scroll'
 
-const handleEvent = (event : ExcludeEvent1) => {
+const handleEvent = (event: ExcludeEvent1) => {
     console.log(`Handling event: ${event}`);
 }
 
 handleEvent('click');
 handleEvent('mouseMove');
 // handleEvent('scroll');  // Error :- Argument of type '"scroll"' is not assignable to parameter of type 'ExcludeEvent1'
+
+/* Record and Map */
+// Record let’s you give a cleaner type to objects
+interface User3 {
+    id: string;
+    name: string;
+}
+
+type Users = { [key: string]: User3 }
+
+const users: Users = {
+    '1': { id: 'abc123', name: 'izhar' },
+    '2': { id: 'xyz456', name: 'Mohammed' }
+}
+
+/* With using Records it can be cleaner */
+interface User4 {
+    id: string;
+    name: string;
+}
+
+type Users1 = Record<string, User4>
+
+const users1: Users1 = {
+    '1': { id: 'abc123', name: 'izhar' },
+    '2': { id: 'xyz456', name: 'Mohammed' }
+}
+
+/* Map */
+// maps gives you an even fancier way to deal with objects. Very similar to Maps in C++
+
+interface User5 {
+    id: string;
+    name: string;
+}
+
+// Initialize an empty Map
+const usersMap = new Map<string, User4>();
+// Add users to the map using .set
+usersMap.set('abc123', { id: 'abc123', name: 'John Doe' });
+usersMap.set('xyz789', { id: 'xyz789', name: 'Jane Doe' });
+// Accessing a value using .get
+console.log(usersMap.get('abc123'));
